@@ -5,11 +5,10 @@ local dump_count = 0
 loadstring = function(src, ...)
     dump_count = dump_count + 1
     local filename = "decoded_" .. dump_count .. ".lua"
+    local httpService = game:GetService("HttpService")
 
-    local f = io.open(filename, "w")
-    if f then
-        f:write(src)
-        f:close()
+    if writefile then
+        writefile(filename,httpService:JSONEncode(src))
         print("[MoonSec Dumper] Stage " .. dump_count .. " dumped to " .. filename .. " ✅")
     else
         print("[MoonSec Dumper] Failed to write " .. filename .. " ❌")
